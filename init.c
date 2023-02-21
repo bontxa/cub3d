@@ -58,3 +58,17 @@ void	ft_init_struct(t_cub3d *box)
 	box->rc_incrementing = box->fov / box->width;
 	box->half_fov = box->fov / 2;
 }
+
+void	ft_free_n_exit(t_cub3d *box)
+{
+		mlx_destroy_image(box->mlx_ptr, box->north.img_ptr);
+		mlx_destroy_image(box->mlx_ptr, box->south.img_ptr);
+		mlx_destroy_image(box->mlx_ptr, box->east.img_ptr);
+		mlx_destroy_image(box->mlx_ptr, box->west.img_ptr);
+		mlx_destroy_image(box->mlx_ptr, box->img.img_ptr);
+		mlx_destroy_window(box->mlx_ptr, box->win_ptr);
+		mlx_destroy_display(box->mlx_ptr);
+		free(box->mlx_ptr);
+		ft_free_map(box);
+		exit(0);
+}

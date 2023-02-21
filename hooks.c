@@ -44,7 +44,9 @@ int	ft_handlekeys(int ks, t_cub3d *box)
 	if (ks == KEY_S)
 		ft_moveup_or_down(box, 1);
 	if (ks == KEY_ESC)
-		exit(0);
+	{
+		ft_free_n_exit(box);
+	}
 	ft_raycasting(box);
 	mlx_put_image_to_window(box->mlx_ptr, box->win_ptr, box->img.img_ptr, 0, 0);
 	return (0);

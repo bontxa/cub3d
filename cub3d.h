@@ -6,7 +6,7 @@
 /*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:39:50 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/21 17:32:12 by ltombell         ###   ########.fr       */
+/*   Updated: 2023/02/21 18:37:28 by ltombell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ unsigned int	ft_mlx_pixel_get(t_img *data, int x, int y);
 
 void	ft_init_struct(t_cub3d *box);
 void	ft_create_map(t_cub3d *box);
+void	ft_free_n_exit(t_cub3d *box);
 
 //UTILS.c
 
@@ -151,6 +152,7 @@ void    ft_print_error(char *str);
 void    ft_first_check(t_cub3d *box, int tmp);
 void    ft_check_valid_path(t_cub3d *box, int j, int i, int number_of_rows);
 void	ft_second_check(t_cub3d *box);
+void	ft_free_map(t_cub3d *box);
 
 
 #endif
