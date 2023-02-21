@@ -35,8 +35,6 @@ int	ft_handlekeys(int ks, t_cub3d *box)
 {
 	printf("key -> %d\n", ks);
 	mlx_clear_window(box->mlx_ptr, box->win_ptr);
-	mlx_destroy_image(box->mlx_ptr, box->img.img_ptr);
-	ft_create_image(&box->img, *box);
 	if (ks == KEY_A)
 		box->angle -= 5;
 	if (ks == KEY_D)

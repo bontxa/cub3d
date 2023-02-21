@@ -371,7 +371,6 @@ void	ft_start_game(void)
 {
 	t_cub3d	box;
 
-	printf("%X\n", -1);
 	ft_init_struct(&box);
 	ft_create_map(&box);
 	ft_check_map(&box);

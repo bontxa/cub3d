@@ -39,6 +39,7 @@ static t_column	ft_do_column(t_cub3d *box, t_ray ray, int raycount)
 	res.colnbr = raycount;
 	res.currentx = ray.currentx;
 	res.currenty = ray.currenty;
+	res.floor_color = 0x808080;
 
 	return (res);
 }
