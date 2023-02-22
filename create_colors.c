@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_colors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:21:37 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/22 16:10:52 by aboncine         ###   ########.fr       */
+/*   Updated: 2023/02/22 17:37:19 by ltombell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	ft_create_color_num(char *s, int start)
 		start++;
 	}
 	res[i] = '\0';
-	num = atoi(res);
+	num = ft_atoi(res);
 	free(res);
 	return (num);
 }

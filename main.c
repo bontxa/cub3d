@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:43:17 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/22 17:10:17 by aboncine         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:04:45 by ltombell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+long	ft_atoi(const char *nptr)
+{
+	int		i;
+	long	result;
+	int		sign;
+
+	i = 0;
+	result = 0;
+	sign = 1;
+	while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
+		i++;
+	if (nptr[i] == '+' || nptr[i] == '-')
+	{
+		if (nptr[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		result = result * 10 + nptr[i] - '0';
+		i++;
+	}
+	return (result * sign);
+}
 
 void	ft_print_error_n_free(t_cub3d *box, char **strarr, char *str)
 {
@@ -34,6 +59,7 @@ void	ft_start_game(char **argv)
 	ft_init_text(&box);
 	ft_raycasting(&box);
 	mlx_put_image_to_window(box.mlx_ptr, box.win_ptr, box.img.img_ptr, 0, 0);
+	mlx_hook(box.win_ptr, 17, 0, ft_free_n_exit, &box);
 	mlx_key_hook(box.win_ptr, ft_handlekeys, &box);
 	mlx_loop(box.mlx_ptr);
 }

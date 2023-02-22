@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:41:13 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/22 17:04:52 by aboncine         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:06:34 by ltombell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_init_struct(t_cub3d *box)
 	box->half_fov = box->fov / 2;
 }
 
-void	ft_free_n_exit(t_cub3d *box)
+int	ft_free_n_exit(t_cub3d *box)
 {
 	mlx_destroy_image(box->mlx_ptr, box->north.img_ptr);
 	mlx_destroy_image(box->mlx_ptr, box->south.img_ptr);
@@ -88,4 +88,5 @@ void	ft_free_n_exit(t_cub3d *box)
 	ft_free_map(box->map);
 	ft_free_map(box->parsed_map);
 	exit(0);
+	return (0);
 }

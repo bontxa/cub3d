@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 15:12:56 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/22 16:56:54 by aboncine         ###   ########.fr       */
+/*   Updated: 2023/02/22 17:42:19 by ltombell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	ft_check_path(t_cub3d *box)
+{
+	int	fd;
+
+	fd = open(box->path_to_east, O_RDONLY);
+	if (fd < 0)
+		ft_print_error_n_free(box, box->map, "percorso texture EA non valido\n");
+	close (fd);
+	fd = open(box->path_to_west, O_RDONLY);
+	if (fd < 0)
+		ft_print_error_n_free(box, box->map, "percorso texture WE non valido\n");
+	close (fd);
+	fd = open(box->path_to_north, O_RDONLY);
+	if (fd < 0)
+		ft_print_error_n_free(box, box->map, "percorso texture NO non valido\n");
+	close (fd);
+	fd = open(box->path_to_south, O_RDONLY);
+	if (fd < 0)
+		ft_print_error_n_free(box, box->map, "percorso texture SO non valido\n");
+	close (fd);
+}
 
 static void	ft_parsed_map(t_cub3d *box, int tmp)
 {
@@ -85,6 +107,7 @@ void	ft_check_map(t_cub3d *box)
 		ft_check_parameters(box);
 		box->j++;
 	}
+	ft_check_path(box);
 	while (tmp != 0 && (box->map[tmp - 1][0] == ' '
 		|| box->map[tmp - 1][0] == '1'))
 		tmp--;

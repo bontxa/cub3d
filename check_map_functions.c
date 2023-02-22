@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_functions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:16:40 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/22 17:11:24 by aboncine         ###   ########.fr       */
+/*   Updated: 2023/02/22 17:56:15 by ltombell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ static void	ft_check_valid_path3(t_cub3d *box, int j, int i, int number_of_rows)
 	}
 }
 
-void	ft_check_valid_path(t_cub3d *box, int j, int i, int number_of_rows)
+void	ft_check_valid_path(t_cub3d *box, int j, int i, int n_of_r)
 {
 	box->map[j][i] = 'x';
-	ft_check_valid_path2(box, j, i, number_of_rows);
-	ft_check_valid_path3(box, j, i, number_of_rows);
+	ft_check_valid_path2(box, j, i, n_of_r);
+	ft_check_valid_path3(box, j, i, n_of_r);
 }
 
 void	ft_second_check(t_cub3d *box)

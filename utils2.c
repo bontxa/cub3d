@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:15:44 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/22 16:44:35 by aboncine         ###   ########.fr       */
+/*   Updated: 2023/02/22 17:54:30 by ltombell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	ft_where_to_start(t_cub3d *box)
 	int	i;
 	int	x;
 
-	x = 0;
-	while (box->parsed_map[x] != 0)
+	x = -1;
+	while (box->parsed_map[++x] != 0)
 	{
 		i = -1;
 		while (box->parsed_map[x][++i])
@@ -35,7 +35,6 @@ void	ft_where_to_start(t_cub3d *box)
 			{
 				box->player_x = i;
 				box->player_y = x;
-				printf("%f	%f\n", box->player_x, box->player_y);
 				if (box->parsed_map[x][i] == 'N')
 					box->angle = 270;
 				else if (box->parsed_map[x][i] == 'E')
@@ -46,7 +45,6 @@ void	ft_where_to_start(t_cub3d *box)
 					box->angle = 180;
 			}
 		}
-		x++;
 	}
 }
 

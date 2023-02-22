@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:39:50 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/22 17:11:47 by aboncine         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:05:49 by ltombell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
 # include "minilibx-linux/mlx.h"
 # define PI 3.141592653589793
 
-typedef struct	s_render
+typedef struct s_render
 {
 	int	start;
 	int	end;
 	int	color;
 }				t_render;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void	*img_ptr;
 	int		w;
@@ -42,7 +42,7 @@ typedef struct	s_img
 	int		currenty;
 }				t_img;
 
-typedef struct	s_ray
+typedef struct s_ray
 {
 	double	ray_angle;
 	double	currentx;
@@ -54,7 +54,7 @@ typedef struct	s_ray
 	int		direction;
 }				t_ray;
 
-typedef struct	s_column
+typedef struct s_column
 {
 	int		sky_start;
 	int		sky_end;
@@ -71,7 +71,7 @@ typedef struct	s_column
 	double	currentx;
 }				t_column;
 
-typedef struct	s_cub3d
+typedef struct s_cub3d
 {
 	int				rdelay;
 	int				rc_precision;
@@ -105,9 +105,7 @@ typedef struct	s_cub3d
 	t_img			west;
 	t_img			east;
 }				t_cub3d;
-
 //KEYS
-
 # define KEY_W 119
 # define KEY_S 115
 # define KEY_A 97
@@ -120,54 +118,39 @@ typedef struct	s_cub3d
 # define KEY_DOWN 65364
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
-
 //HOOKS.c
-
-int	ft_handlekeys(int ks, t_cub3d *box);
-
+int				ft_handlekeys(int ks, t_cub3d *box);
 //RAYCASTING.c
-
-void	ft_raycasting(t_cub3d *box);
-
+void			ft_raycasting(t_cub3d *box);
 //RENDER.c
-
-void	ft_render_full_column(t_cub3d *box, t_img img, t_column column);
-
+void			ft_render_full_column(t_cub3d *box, t_img img, t_column column);
 //MLX_UTILS.c
-
-void	ft_create_image(t_img *img, t_cub3d box);
-void	ft_render_pixel(t_img img, int x, int y, int color);
-void	ft_create_window(t_cub3d *box);
-void	ft_init_text(t_cub3d *box);
+void			ft_create_image(t_img *img, t_cub3d box);
+void			ft_render_pixel(t_img img, int x, int y, int color);
+void			ft_create_window(t_cub3d *box);
+void			ft_init_text(t_cub3d *box);
 unsigned int	ft_mlx_pixel_get(t_img *data, int x, int y);
-
 //INIT.c
-
-void	ft_init_struct(t_cub3d *box);
-void	ft_create_map(t_cub3d *box, char *argv);
-void	ft_free_n_exit(t_cub3d *box);
-
+void			ft_init_struct(t_cub3d *box);
+void			ft_create_map(t_cub3d *box, char *argv);
+int				ft_free_n_exit(t_cub3d *box);
 //UTILS.c
-
-double	ft_degrees_to_radiants(double degrees);
-void	ft_perror_exit(char *str);
-
-
-void    ft_check_map(t_cub3d *box);
-int     ft_strlen(char *str);
-void    ft_print_error(char *str, char **strarr);
-void    ft_first_check(t_cub3d *box, int tmp);
-void    ft_check_valid_path(t_cub3d *box, int j, int i, int number_of_rows);
-void	ft_second_check(t_cub3d *box);
-void	ft_free_map(char **strarr);
-int		ft_strncmp(char *s1, char *s2);
-char	*ft_strncpy(char *str, int start);
-char	*ft_strdup(char *s);
+double			ft_degrees_to_radiants(double degrees);
+void			ft_perror_exit(char *str);
+void			ft_check_map(t_cub3d *box);
+int				ft_strlen(char *str);
+void			ft_print_error(char *str, char **strarr);
+void			ft_first_check(t_cub3d *box, int tmp);
+void			ft_check_valid_path(t_cub3d *box, int j, int i, int n_of_r);
+void			ft_second_check(t_cub3d *box);
+void			ft_free_map(char **strarr);
+int				ft_strncmp(char *s1, char *s2);
+char			*ft_strncpy(char *str, int start);
+char			*ft_strdup(char *s);
 unsigned int	ft_get_rgb(char *s, int start);
-void	ft_where_to_start(t_cub3d *box);
-int	ft_is_direction(char c);
-void	ft_print_error_n_free(t_cub3d *box, char **strarr, char *str);
-
-
+void			ft_where_to_start(t_cub3d *box);
+int				ft_is_direction(char c);
+void			ft_print_error_n_free(t_cub3d *box, char **strarr, char *str);
+long			ft_atoi(const char *nptr);
 
 #endif

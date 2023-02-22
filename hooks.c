@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:33:32 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/22 16:47:55 by aboncine         ###   ########.fr       */
+/*   Updated: 2023/02/22 17:56:12 by ltombell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ static void	ft_moveup_or_down3(t_cub3d *box, double playercos, double playersin)
 
 	newx = box->player_x - playercos;
 	newy = box->player_y - playersin;
-	if (box->parsed_map[(int)floor(newy)][(int)floor(newx)] == 48)
+	if (box->parsed_map[(int)floor(newy)][(int)floor(newx)] == 48
+		|| ft_is_direction(box->parsed_map[(int)floor(newy)]
+		[(int)floor(newx)]) == 1)
 	{
 		box->player_x = newx;
 		box->player_y = newy;
@@ -57,7 +59,6 @@ static void	ft_moveup_or_down(t_cub3d *box, int flag)
 
 int	ft_handlekeys(int ks, t_cub3d *box)
 {
-	printf("key -> %d\n", ks);
 	mlx_clear_window(box->mlx_ptr, box->win_ptr);
 	if (ks == KEY_A)
 		box->angle -= 5;
@@ -68,9 +69,7 @@ int	ft_handlekeys(int ks, t_cub3d *box)
 	if (ks == KEY_S)
 		ft_moveup_or_down(box, 1);
 	if (ks == KEY_ESC)
-	{
 		ft_free_n_exit(box);
-	}
 	ft_raycasting(box);
 	mlx_put_image_to_window(box->mlx_ptr, box->win_ptr, box->img.img_ptr, 0, 0);
 	return (0);
