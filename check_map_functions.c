@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_functions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:16:40 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/21 17:15:56 by ltombell         ###   ########.fr       */
+/*   Updated: 2023/02/22 17:11:24 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ft_check_valid_path2(t_cub3d *box, int j, int i, int number_of_rows)
 	{
 		if (box->map[j][i + 1] != '1' && box->map[j][i + 1] != ' '
 			&& box->map[j][i + 1] != 'x')
-			ft_print_error("map error4\n");
+			ft_print_error("Error\nmappa non valida\n", box->map);
 		else if (box->map[j][i + 1] == ' ')
 			ft_check_valid_path(box, j, (i + 1), number_of_rows);
 	}
@@ -26,7 +26,7 @@ static void	ft_check_valid_path2(t_cub3d *box, int j, int i, int number_of_rows)
 	{
 		if (box->map[j][i - 1] != '1' && box->map[j][i - 1] != ' '
 			&& box->map[j][i - 1] != 'x')
-			ft_print_error("map error5\n");
+			ft_print_error("Error\nmappa non valida\n", box->map);
 		else if (box->map[j][i - 1] == ' ')
 			ft_check_valid_path(box, j, (i - 1), number_of_rows);
 	}
@@ -38,7 +38,7 @@ static void	ft_check_valid_path3(t_cub3d *box, int j, int i, int number_of_rows)
 	{
 		if (box->map[j + 1][i] != '1' && box->map[j + 1][i] != ' '
 			&& box->map[j + 1][i] != 'x')
-			ft_print_error("map error6\n");
+			ft_print_error("Error\nmappa non valida\n", box->map);
 		else if (box->map[j + 1][i] == ' ')
 			ft_check_valid_path(box, (j + 1), i, number_of_rows);
 	}
@@ -46,7 +46,7 @@ static void	ft_check_valid_path3(t_cub3d *box, int j, int i, int number_of_rows)
 	{
 		if (box->map[j - 1][i] != '1' && box->map[j - 1][i] != ' '
 			&& box->map[j - 1][i] != 'x')
-			ft_print_error("map error7\n");
+			ft_print_error("Error\nmappa non valida\n", box->map);
 		else if (box->map[j - 1][i] == ' ')
 			ft_check_valid_path(box, (j - 1), i, number_of_rows);
 	}
@@ -63,14 +63,14 @@ void	ft_second_check(t_cub3d *box)
 {
 	if (box->i != ft_strlen(box->map[box->j]) - 1)
 	{
-		if(box->map[box->j][box->i] != 'N' && box->map[box->j][box->i] != 'S'
+		if (box->map[box->j][box->i] != 'N' && box->map[box->j][box->i] != 'S'
 			&& box->map[box->j][box->i] != 'W'
 			&& box->map[box->j][box->i] != 'E'
 			&& box->map[box->j][box->i] != '0'
 			&& box->map[box->j][box->i] != '1'
 			&& box->map[box->j][box->i] != ' '
 			&& box->map[box->j][box->i] != 'x')
-			ft_print_error("errore: carattere non consentito\n");
+			ft_print_error_n_free(box, box->map, "Error\nmappa non valida\n");
 	}
 	if (box->map[box->j][box->i] == 'N' || box->map[box->j][box->i] == 'S'
 		|| box->map[box->j][box->i] == 'W' || box->map[box->j][box->i] == 'E'
@@ -82,7 +82,7 @@ void	ft_second_check(t_cub3d *box)
 			|| box->map[box->j + 1][box->i] == ' '
 			|| box->map[box->j - 1][box->i] == 'x'
 			|| box->map[box->j + 1][box->i] == 'x')
-			ft_print_error("errore: mappa non valida\n");
+			ft_print_error_n_free(box, box->map, "Error\nmappa non valida\n");
 		if (box->map[box->j][box->i] != '0')
 			box->flag = 1;
 	}
@@ -94,9 +94,10 @@ void	ft_first_check(t_cub3d *box, int tmp)
 	{
 		while (box->map[box->j][box->i] != '\n')
 		{
-			if (box->map[box->j][box->i] != '1' && box->map[box->j][box->i] != ' '
+			if (box->map[box->j][box->i] != '1'
+				&& box->map[box->j][box->i] != ' '
 				&& box->map[box->j][box->i] != 'x')
-				ft_print_error("errore: mappa non circondata da muri\n");
+				ft_print_error("Error\nmappa non valida\n", box->map);
 			box->i++;
 		}
 		box->i = 0;
@@ -106,5 +107,5 @@ void	ft_first_check(t_cub3d *box, int tmp)
 		|| (box->map[box->j][ft_strlen(box->map[box->j]) - 2] != '1'
 		&& box->map[box->j][ft_strlen(box->map[box->j]) - 2] != ' '
 		&& box->map[box->j][ft_strlen(box->map[box->j]) - 2] != 'x'))
-		ft_print_error("errore: mappa non circondata da muri\n");
+		ft_print_error("Error\nmappa non valida\n", box->map);
 }

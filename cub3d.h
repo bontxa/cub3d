@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:39:50 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/21 18:37:28 by ltombell         ###   ########.fr       */
+/*   Updated: 2023/02/22 17:11:47 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 # include "get_next_line.h"
 # include "minilibx-linux/mlx.h"
 # define PI 3.141592653589793
+
+typedef struct	s_render
+{
+	int	start;
+	int	end;
+	int	color;
+}				t_render;
 
 typedef struct	s_img
 {
@@ -73,6 +80,7 @@ typedef struct	s_cub3d
 	void			*mlx_ptr;
 	void			*win_ptr;
 	char			**map;
+	char			**parsed_map;
 	double			half_h;
 	double			half_w;
 	double			fov;
@@ -97,7 +105,6 @@ typedef struct	s_cub3d
 	t_img			west;
 	t_img			east;
 }				t_cub3d;
-
 
 //KEYS
 
@@ -137,7 +144,7 @@ unsigned int	ft_mlx_pixel_get(t_img *data, int x, int y);
 //INIT.c
 
 void	ft_init_struct(t_cub3d *box);
-void	ft_create_map(t_cub3d *box);
+void	ft_create_map(t_cub3d *box, char *argv);
 void	ft_free_n_exit(t_cub3d *box);
 
 //UTILS.c
@@ -148,11 +155,19 @@ void	ft_perror_exit(char *str);
 
 void    ft_check_map(t_cub3d *box);
 int     ft_strlen(char *str);
-void    ft_print_error(char *str);
+void    ft_print_error(char *str, char **strarr);
 void    ft_first_check(t_cub3d *box, int tmp);
 void    ft_check_valid_path(t_cub3d *box, int j, int i, int number_of_rows);
 void	ft_second_check(t_cub3d *box);
-void	ft_free_map(t_cub3d *box);
+void	ft_free_map(char **strarr);
+int		ft_strncmp(char *s1, char *s2);
+char	*ft_strncpy(char *str, int start);
+char	*ft_strdup(char *s);
+unsigned int	ft_get_rgb(char *s, int start);
+void	ft_where_to_start(t_cub3d *box);
+int	ft_is_direction(char c);
+void	ft_print_error_n_free(t_cub3d *box, char **strarr, char *str);
+
 
 
 #endif

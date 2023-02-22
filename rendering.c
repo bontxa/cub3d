@@ -1,39 +1,49 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rendering.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/22 15:58:55 by aboncine          #+#    #+#             */
+/*   Updated: 2023/02/22 16:06:28 by aboncine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-static void	ft_render_column_piece(t_img img, int start, int end, int color, int nb)
+static void	ft_ren_col_piece(t_img img, t_render render, int nb)
 {
-	while (start < end)
+	while (render.start < render.end)
 	{
-		ft_render_pixel(img, nb, start, color);
-		start++;
+		ft_render_pixel(img, nb, render.start, render.color);
+		render.start++;
 	}
 }
 
 static void	ft_render_column(t_img img, t_column column, int flag)
 {
-	int	start;
-	int	end;
-	int	color;
+	t_render	render;
 
 	if (flag == 0)
 	{
-		start = column.sky_start;
-		end = column.sky_end;
-		color = column.sky_color;
+		render.start = column.sky_start;
+		render.end = column.sky_end;
+		render.color = column.sky_color;
 	}
 	else if (flag == 1)
 	{
-		start = column.wall_start;
-		end = column.wall_end;
-		color = column.wall_color;
+		render.start = column.wall_start;
+		render.end = column.wall_end;
+		render.color = column.wall_color;
 	}
 	else
 	{
-		start = column.floor_start;
-		end = column.floor_end;
-		color = column.floor_color;
+		render.start = column.floor_start;
+		render.end = column.floor_end;
+		render.color = column.floor_color;
 	}
-	ft_render_column_piece(img, start, end, color, column.colnbr);
+	ft_ren_col_piece(img, render, column.colnbr);
 }
 
 static void	ft_render_wall(t_img *texture, t_img img, t_column column)
@@ -45,18 +55,19 @@ static void	ft_render_wall(t_img *texture, t_img img, t_column column)
 	int				i;
 
 	i = 0;
-	stepx = 64.0 / (column.wall_end - column.wall_start);
+	stepx = (double)texture->h / (column.wall_end - column.wall_start);
 	textx = 0;
-	texty = 64.0 * (column.currentx + column.currenty);
+	texty = (double)texture->w * (column.currentx + column.currenty);
 	while (column.wall_start < column.wall_end)
 	{
-		color = ft_mlx_pixel_get(texture, (int)texty % 64, (int)textx % 64);
+		color = ft_mlx_pixel_get
+			(texture, (int)texty % texture->w, (int)textx % texture->h);
 		ft_render_pixel(img, column.colnbr, column.wall_start, color);
 		column.wall_start++;
 		textx += stepx;
 		i++;
 	}
-	texture->currenty += stepx / 64;
+	texture->currenty += stepx / texture->w;
 }
 
 static void	ft_render_walls(t_cub3d *box, t_img img, t_column column)

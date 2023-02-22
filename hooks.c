@@ -1,34 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hooks.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/22 15:33:32 by aboncine          #+#    #+#             */
+/*   Updated: 2023/02/22 16:47:55 by aboncine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
+
+static void	ft_moveup_or_down3(t_cub3d *box, double playercos, double playersin)
+{
+	double	newx;
+	double	newy;
+
+	newx = box->player_x - playercos;
+	newy = box->player_y - playersin;
+	if (box->parsed_map[(int)floor(newy)][(int)floor(newx)] == 48)
+	{
+		box->player_x = newx;
+		box->player_y = newy;
+	}
+}
+
+static void	ft_moveup_or_down2(t_cub3d *box, double playercos, double playersin)
+{
+	double	newx;
+	double	newy;
+
+	newx = box->player_x + playercos;
+	newy = box->player_y + playersin;
+	if (box->parsed_map[(int)floor(newy)][(int)floor(newx)] == 48
+		|| ft_is_direction(box->parsed_map[(int)floor(newy)]
+		[(int)floor(newx)]) == 1)
+	{
+		box->player_x = newx;
+		box->player_y = newy;
+	}
+}
 
 static void	ft_moveup_or_down(t_cub3d *box, int flag)
 {
 	double	playercos;
 	double	playersin;
-	double	newx;
-	double	newy;
 
 	playercos = cos(ft_degrees_to_radiants(box->angle)) * 0.2;
 	playersin = sin(ft_degrees_to_radiants(box->angle)) * 0.2;
 	if (flag == 0)
-	{
-		newx = box->player_x + playercos;
-		newy = box->player_y + playersin;
-		if (box->map[(int)floor(newy)][(int)floor(newx)] == 48)
-		{
-			box->player_x = newx;
-			box->player_y = newy;
-		}
-	}
+		ft_moveup_or_down2(box, playercos, playersin);
 	else
-	{
-		newx = box->player_x - playercos;
-		newy = box->player_y - playersin;
-		if (box->map[(int)floor(newy)][(int)floor(newx)] == 48)
-		{
-			box->player_x = newx;
-			box->player_y = newy;
-		}
-	}
+		ft_moveup_or_down3(box, playercos, playersin);
 }
 
 int	ft_handlekeys(int ks, t_cub3d *box)

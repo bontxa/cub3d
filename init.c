@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/22 15:41:13 by aboncine          #+#    #+#             */
+/*   Updated: 2023/02/22 17:04:52 by aboncine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static void	ft_create_map_2(t_cub3d *box, int count, int fd)
@@ -18,14 +30,14 @@ static void	ft_create_map_2(t_cub3d *box, int count, int fd)
 	close(fd);
 }
 
-void	ft_create_map(t_cub3d *box)
+void	ft_create_map(t_cub3d *box, char *argv)
 {
 	int		fd;
 	int		count;
 	char	*tmp;
 
 	count = 0;
-	fd = open("map.cub", O_RDONLY);
+	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 		ft_perror_exit("Error:");
 	tmp = get_next_line(fd);
@@ -61,14 +73,19 @@ void	ft_init_struct(t_cub3d *box)
 
 void	ft_free_n_exit(t_cub3d *box)
 {
-		mlx_destroy_image(box->mlx_ptr, box->north.img_ptr);
-		mlx_destroy_image(box->mlx_ptr, box->south.img_ptr);
-		mlx_destroy_image(box->mlx_ptr, box->east.img_ptr);
-		mlx_destroy_image(box->mlx_ptr, box->west.img_ptr);
-		mlx_destroy_image(box->mlx_ptr, box->img.img_ptr);
-		mlx_destroy_window(box->mlx_ptr, box->win_ptr);
-		mlx_destroy_display(box->mlx_ptr);
-		free(box->mlx_ptr);
-		ft_free_map(box);
-		exit(0);
+	mlx_destroy_image(box->mlx_ptr, box->north.img_ptr);
+	mlx_destroy_image(box->mlx_ptr, box->south.img_ptr);
+	mlx_destroy_image(box->mlx_ptr, box->east.img_ptr);
+	mlx_destroy_image(box->mlx_ptr, box->west.img_ptr);
+	mlx_destroy_image(box->mlx_ptr, box->img.img_ptr);
+	mlx_destroy_window(box->mlx_ptr, box->win_ptr);
+	mlx_destroy_display(box->mlx_ptr);
+	free(box->mlx_ptr);
+	free(box->path_to_east);
+	free(box->path_to_west);
+	free(box->path_to_north);
+	free(box->path_to_south);
+	ft_free_map(box->map);
+	ft_free_map(box->parsed_map);
+	exit(0);
 }

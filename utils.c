@@ -1,28 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/22 16:07:03 by aboncine          #+#    #+#             */
+/*   Updated: 2023/02/22 16:57:27 by aboncine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void	ft_print_error(char *str)
+void	ft_print_error(char *str, char **strarr)
 {
 	printf("%s", str);
-	exit(0);
+	ft_free_map(strarr);
+	exit(1);
 }
 
-int ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	while (str[i])
 		i++;
 	return (i);
 }
 
-void	ft_free_map(t_cub3d *box)
+void	ft_free_map(char **strarr)
 {
 	int	i;
 
 	i = 0;
-	while (box->map[i])
-		free(box->map[i++]);
-	free(box->map);
+	while (strarr[i])
+		free(strarr[i++]);
+	free(strarr);
 }
 
 void	ft_perror_exit(char *str)
