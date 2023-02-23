@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:39:50 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/22 18:05:49 by ltombell         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:26:44 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void			ft_free_map(char **strarr);
 int				ft_strncmp(char *s1, char *s2);
 char			*ft_strncpy(char *str, int start);
 char			*ft_strdup(char *s);
-unsigned int	ft_get_rgb(char *s, int start);
+unsigned int	ft_get_rgb(t_cub3d *box, char *s, int start);
 void			ft_where_to_start(t_cub3d *box);
 int				ft_is_direction(char c);
 void			ft_print_error_n_free(t_cub3d *box, char **strarr, char *str);

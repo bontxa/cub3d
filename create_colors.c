@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_colors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:21:37 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/22 17:37:19 by ltombell         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:15:55 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static unsigned int	ft_color_converter(int r, int g, int b)
 	return (r << 16 | g << 8 | b);
 }
 
-unsigned int	ft_get_rgb(char *s, int start)
+unsigned int	ft_get_rgb(t_cub3d *box, char *s, int start)
 {
 	int		i;
 	int		r;
@@ -49,6 +49,9 @@ unsigned int	ft_get_rgb(char *s, int start)
 	int		b;
 
 	i = start;
+	r = 256;
+	g = 256;
+	b = 256;
 	r = ft_create_color_num(s, i);
 	while (s[i] != ',')
 		i++;
@@ -58,5 +61,7 @@ unsigned int	ft_get_rgb(char *s, int start)
 		i++;
 	i++;
 	b = ft_create_color_num(s, i);
+	if (r > 255 || g > 255 || b > 255 || r < 0 || g < 0 || b < 0)
+		ft_print_error_n_free(box, box->map, "Error\nparametri colori errati\n");
 	return (ft_color_converter(r, g, b));
 }

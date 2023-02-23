@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:15:44 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/22 17:54:30 by ltombell         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:19:01 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*ft_strncpy(char *str, int start)
 	i = 0;
 	dst = (char *) malloc(sizeof(char) * (ft_strlen(str) - start));
 	if (!dst)
-		perror("error: ");
+		perror("Error\n");
 	while (start < ft_strlen(str) - 1)
 		dst[i++] = str[start++];
 	dst[i] = '\0';

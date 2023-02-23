@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 15:12:56 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/22 17:42:19 by ltombell         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:15:30 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,24 @@ static void	ft_check_path(t_cub3d *box)
 {
 	int	fd;
 
+	if (box->path_to_north == NULL || box->path_to_south == NULL
+		|| box->path_to_east == NULL || box->path_to_west == NULL)
+		ft_print_error_n_free(box, box->map, "Error\ntexture non valida\n");
 	fd = open(box->path_to_east, O_RDONLY);
 	if (fd < 0)
-		ft_print_error_n_free(box, box->map, "percorso texture EA non valido\n");
+		ft_print_error_n_free(box, box->map, "Error\ntexture EA non valida\n");
 	close (fd);
 	fd = open(box->path_to_west, O_RDONLY);
 	if (fd < 0)
-		ft_print_error_n_free(box, box->map, "percorso texture WE non valido\n");
+		ft_print_error_n_free(box, box->map, "Error\ntexture WE non valida\n");
 	close (fd);
 	fd = open(box->path_to_north, O_RDONLY);
 	if (fd < 0)
-		ft_print_error_n_free(box, box->map, "percorso texture NO non valido\n");
+		ft_print_error_n_free(box, box->map, "Error\ntexture NO non valida\n");
 	close (fd);
 	fd = open(box->path_to_south, O_RDONLY);
 	if (fd < 0)
-		ft_print_error_n_free(box, box->map, "percorso texture SO non valido\n");
+		ft_print_error_n_free(box, box->map, "Error\ntexture SO non valida\n");
 	close (fd);
 }
 
@@ -44,7 +47,7 @@ static void	ft_parsed_map(t_cub3d *box, int tmp)
 	if (!box->parsed_map)
 	{
 		ft_free_map(box->map);
-		ft_perror_exit("error:");
+		ft_perror_exit("Error\n");
 	}
 	while (tmp < box->number_of_rows)
 		box->parsed_map[i++] = ft_strdup(box->map[tmp++]);
@@ -67,7 +70,7 @@ static void	ft_do_check(t_cub3d *box, int tmp)
 		box->j++;
 	}
 	if (box->flag == 0)
-		ft_print_error("Error\nmappa non valida\n", box->map);
+		ft_print_error_n_free(box, box->map, "Error\nmappa non valida\n");
 	ft_parsed_map(box, tmp);
 }
 
@@ -82,9 +85,9 @@ static void	ft_check_parameters(t_cub3d *box)
 	else if (ft_strncmp(box->map[box->j], "EA ") == 1)
 		box->path_to_east = ft_strncpy(box->map[box->j], 3);
 	else if (ft_strncmp(box->map[box->j], "F ") == 1)
-		box->floor_color = ft_get_rgb(box->map[box->j], 2);
+		box->floor_color = ft_get_rgb(box, box->map[box->j], 2);
 	else if (ft_strncmp(box->map[box->j], "C ") == 1)
-		box->sky_color = ft_get_rgb(box->map[box->j], 2);
+		box->sky_color = ft_get_rgb(box, box->map[box->j], 2);
 }
 
 void	ft_check_map(t_cub3d *box)

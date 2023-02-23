@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:43:17 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/22 18:04:45 by ltombell         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:17:11 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	ft_atoi_check_char(const char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != '+' && str[i] != '-' && (str[i] < '0' || str[i] > '9'))
+			return (256);
+		i++;
+	}
+	return (0);
+}
 
 long	ft_atoi(const char *nptr)
 {
@@ -21,6 +35,8 @@ long	ft_atoi(const char *nptr)
 	i = 0;
 	result = 0;
 	sign = 1;
+	if (ft_atoi_check_char(nptr) == 256)
+		return (256);
 	while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
 		i++;
 	if (nptr[i] == '+' || nptr[i] == '-')
@@ -35,15 +51,6 @@ long	ft_atoi(const char *nptr)
 		i++;
 	}
 	return (result * sign);
-}
-
-void	ft_print_error_n_free(t_cub3d *box, char **strarr, char *str)
-{
-	free(box->path_to_east);
-	free(box->path_to_west);
-	free(box->path_to_north);
-	free(box->path_to_south);
-	ft_print_error(str, strarr);
 }
 
 void	ft_start_game(char **argv)

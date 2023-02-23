@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltombell <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:33:32 by aboncine          #+#    #+#             */
-/*   Updated: 2023/02/22 17:56:12 by ltombell         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:14:24 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ft_print_error_n_free(t_cub3d *box, char **strarr, char *str)
+{
+	free(box->path_to_east);
+	free(box->path_to_west);
+	free(box->path_to_north);
+	free(box->path_to_south);
+	ft_print_error(str, strarr);
+}
 
 static void	ft_moveup_or_down3(t_cub3d *box, double playercos, double playersin)
 {
